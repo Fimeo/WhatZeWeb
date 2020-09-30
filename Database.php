@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Classe concernant la base de données. Gère la connection à la base de données.
+ * Classe concernant la base de données.
  * Gère la connexion à la base de données
  */
 class Database
@@ -12,13 +12,14 @@ class Database
 
     /**
      * Connexion à la base de données
+     * Retourne l'instance PDO de la base de données si réussie
      */
     public function getConnection()
     {
         try {
             $connection = new PDO(self::DB_HOST, self::DB_USER, self::DB_PASS);
             $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            return 'Connexion OK';
+            return $connection;
         } catch (Exception $errorConnection) {
             die('Erreur de connexion à la base de données : ' . $errorConnection->getMessage());
         }

@@ -22,14 +22,13 @@ require 'Article.php';
     //Récupération des données des articles
     $articles = $article->getArticles();
     //Affichage des données reçues
-    while($article = $articles->fetch())
-    {
+    while ($article = $articles->fetch()) {
         ?>
         <div>
-            <h2><a href="single.php?articleId=<?= htmlspecialchars($article['id'])?>"><?= htmlspecialchars($article['title']);?></a></h2>
-            <p><?= htmlspecialchars($article['content']);?></p>
-            <p><?= htmlspecialchars($article['author']);?></p>
-            <p>Crée le : <?= htmlspecialchars($article['createdAt']);?></p>
+            <h2><a href="single.php?articleId=<?= htmlspecialchars($article['id'])?>"><?= htmlspecialchars($article['title']); ?></a></h2>
+            <p><?= htmlspecialchars($article['content']); ?></p>
+            <p><?= htmlspecialchars($article['author']); ?></p>
+            <p>Crée le : <?= htmlspecialchars($article['createdAt']); ?></p>
         </div>
         <br>
         <?php

@@ -2,8 +2,9 @@
 
 /**
  * Classe Article, gère les opérations effectuées sur les articles.
+ * Hérite de la classe Database, effectue les requêtes directement.
  */
-class Article
+class Article extends Database
 {
     /**
      * Renvoie le résultat de la requête de tous les articles
@@ -11,10 +12,8 @@ class Article
      */
     public function getArticles()
     {
-        $db = new Database();
-        $connection = $db->getConnection();
-        $result = $connection->query('SELECT id, title, content, author, createdAt FROM article ORDER BY id DESC');
-        return $result;
+        $sql = 'SELECT id, title, content, author, createdAt FROM article ORDER BY id DESC';
+        return $this->createQuery($sql);
     }
 
     /**
@@ -22,10 +21,10 @@ class Article
      */
     public function getArticle($articleId)
     {
-        $db = new Database();
-        $connection = $db->getConnection();
-        $result = $connection->prepare('SELECT id, title, content, author, createdAt FROM article WHERE id=:id');
-        $result->execute(['id' => $articleId]);
-        return $result;
+        $sql = 'SELECT id, title, content, author, createdAt FROM article WHERE id=:id';
+        $parameters = [
+            "id" => $articleId
+        ];
+        return $this->createQuery($sql, $parameters);
     }
 }

@@ -23,10 +23,10 @@ require 'Article.php';
     $article = $articles->fetch();
     ?>
     <div>
-        <h2><?= htmlspecialchars($article['title']);?></h2>
-        <p><?= htmlspecialchars($article['content']);?></p>
-        <p><?= htmlspecialchars($article['author']);?></p>
-        <p>Crée le : <?= htmlspecialchars($article['createdAt']);?></p>
+        <h2><?= htmlspecialchars($article->title);?></h2>
+        <p><?= htmlspecialchars($article->content); ?></p>
+        <p><?= htmlspecialchars($article->author); ?></p>
+        <p>Crée le : <?= htmlspecialchars($article->createdAt); ?></p>
     </div>
     <br>
     <?php

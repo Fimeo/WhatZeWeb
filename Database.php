@@ -50,10 +50,13 @@ abstract class Database
         // Si il y a des paramètres, requête préparée
         if ($parameters) {
             $result = $this->check_connection()->prepare($sql);
+            //Conversion des données reçues en objet de la classe appelante
+            $result->setFetchMode(PDO::FETCH_CLASS, static::class);
             $result->execute($parameters);
             return $result;
         }
         $result = $this->check_connection()->query($sql);
+        $result->setFetchMode(PDO::FETCH_CLASS, static::class);
         return $result;
     }
 }

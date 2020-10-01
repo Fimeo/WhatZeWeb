@@ -3,6 +3,7 @@
 
 require 'Database.php';
 require 'Article.php';
+require 'Comment.php';
 ?>
 
 <!DOCTYPE html>
@@ -33,5 +34,21 @@ require 'Article.php';
     $articles->closeCursor();
     ?>
     <a href="home.php">Retour à l'accueil</a>
+    <div id="id" class="text-left">
+        <h3>Commentaires</h3>
+        <?php
+        $comment = new Comment();
+        $comments = $comment->getCommentsFromArticle($_GET['articleId']);
+        while ($comment = $comments->fetch())
+        {
+            ?>
+            <h4><?= htmlspecialchars($comment->pseudo);?></h4>
+            <p><?= htmlspecialchars($comment->content)?></p>
+            <p>Posté le : <?= htmlspecialchars($comment->createdAt)?></p>
+            <?php
+        }
+        $comments->closeCursor();
+        ?>
+    </div>
 </body>
 </html>

@@ -1,10 +1,15 @@
 <?php
 
+namespace App\src\DAO;
+
+use PDO;
+use Exception;
+
 /**
  * Classe concernant la base de données.
  * Gère la connexion à la base de données
  */
-abstract class Database
+abstract class DAO
 {
     const DB_HOST = 'mysql:host=localhost;dbname=blog;charset=utf8';
     const DB_USER = 'user';

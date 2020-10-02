@@ -1,9 +1,18 @@
 <?php
 //Affichage d'un article en particulier
 
-require 'Database.php';
-require 'Article.php';
-require 'Comment.php';
+require '../src/DAO/DAO.php';
+
+require '../src/DAO/ArticleDAO.php';
+
+require '../src/DAO/CommentDAO.php';
+
+// Simplification des créations de classe avec primitive use
+// Fait référence aux namespaces des fichiers.
+// Sinon il faudrait faire new App\src\DAO\ArticleDAO();
+use App\src\DAO\ArticleDAO;
+use App\src\DAO\CommentDAO;
+
 ?>
 
 <!DOCTYPE html>
@@ -17,7 +26,7 @@ require 'Comment.php';
     <h1>Mon blog</h1>
     <p>En construction</p>
     <?php
-    $article = new Article();
+    $article = new ArticleDAO();
 
     //Attention !! A ne pas faire car pas sécurisé, si l'article n'existe pas
     $articles = $article->getArticle($_GET['articleId']);
@@ -37,7 +46,7 @@ require 'Comment.php';
     <div id="id" class="text-left">
         <h3>Commentaires</h3>
         <?php
-        $comment = new Comment();
+        $comment = new CommentDAO();
         $comments = $comment->getCommentsFromArticle($_GET['articleId']);
         while ($comment = $comments->fetch())
         {

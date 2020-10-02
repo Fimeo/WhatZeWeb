@@ -1,8 +1,12 @@
 <?php
 //Include de la connexion à la base de données.
-require 'Database.php';
+require '../src/DAO/DAO.php';
 
-require 'Article.php';
+require '../src/DAO/ArticleDAO.php';
+
+// Simplification des créations de classe avec primitive use
+// Fait référence aux namespaces des fichiers.
+use App\src\DAO\ArticleDAO;
 
 ?>
 <!DOCTYPE html>
@@ -18,7 +22,7 @@ require 'Article.php';
     <?php
     
     //Création d'un article
-    $article = new Article();
+    $article = new ArticleDAO();
     //Récupération des données des articles
     $articles = $article->getArticles();
     //Affichage des données reçues

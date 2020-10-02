@@ -1,10 +1,12 @@
 <?php
 
+namespace App\src\DAO;
+
 /**
  * Classe Article, gère les opérations effectuées sur les articles.
  * Hérite de la classe Database, effectue les requêtes directement.
  */
-class Article extends Database
+class ArticleDAO extends DAO
 {
     /**
      * Renvoie le résultat de la requête de tous les articles

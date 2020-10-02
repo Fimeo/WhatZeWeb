@@ -1,9 +1,11 @@
 <?php
 
+namespace App\src\DAO;
+
 /**
  * Classe qui gère les commentaires sur le site.
  */
-class Comment extends Database
+class CommentDAO extends DAO
 {
     /**
      * Récupération des commentaires associés à un article (son identifiant)

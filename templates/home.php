@@ -1,8 +1,3 @@
-<?php
-
-use App\src\DAO\ArticleDAO;
-
-?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -15,11 +10,6 @@ use App\src\DAO\ArticleDAO;
     <h1>Mon blog</h1>
     <p>En construction</p>
     <?php
-    
-    //Création d'un article
-    $article = new ArticleDAO();
-    //Récupération des données des articles
-    $articles = $article->getArticles();
     //Affichage des données reçues
     while ($article = $articles->fetch()) {
         ?>

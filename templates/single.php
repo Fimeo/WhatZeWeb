@@ -1,11 +1,3 @@
-<?php
-//Affichage d'un article en particulier
-
-use App\src\DAO\ArticleDAO;
-use App\src\DAO\CommentDAO;
-
-?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -17,13 +9,7 @@ use App\src\DAO\CommentDAO;
 <body>
     <h1>Mon blog</h1>
     <p>En construction</p>
-    <?php
-    $article = new ArticleDAO();
-
-    //Attention !! A ne pas faire car pas sécurisé, si l'article n'existe pas
-    $articles = $article->getArticle($_GET['articleId']);
-    $article = $articles->fetch();
-    ?>
+    <?php $article = $articles->fetch(); ?>
     <div>
         <h2><?= htmlspecialchars($article->title);?></h2>
         <p><?= htmlspecialchars($article->content); ?></p>
@@ -31,15 +17,11 @@ use App\src\DAO\CommentDAO;
         <p>Crée le : <?= htmlspecialchars($article->createdAt); ?></p>
     </div>
     <br>
-    <?php
-    $articles->closeCursor();
-    ?>
+    <?php $articles->closeCursor(); ?>
     <a href="../public/index.php">Retour à l'accueil</a>
     <div id="id" class="text-left">
         <h3>Commentaires</h3>
         <?php
-        $comment = new CommentDAO();
-        $comments = $comment->getCommentsFromArticle($_GET['articleId']);
         while ($comment = $comments->fetch()) {
             ?>
             <h4><?= htmlspecialchars($comment->pseudo); ?></h4>

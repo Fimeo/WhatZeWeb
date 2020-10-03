@@ -21,3 +21,12 @@ Structure des dossiers de l'application:
     - controller : contrôleurs
     - DAO : managers Data Access Object
 * <u>templates</u> : vues sur l'application
+
+## Installation de Composer :
+
+[Site officiel de Composer](https://getcomposer.org/)
+
+[Détails sur l'installation](https://www.whatzeweb.com/blog/installer-et-utiliser-composer)
+
+Génération des fichiers autoload :
+`composer dump-autoload`

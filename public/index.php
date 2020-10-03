@@ -6,21 +6,6 @@ require '../config/dev.php';
 //Centralisation de l'appel à l'autoloader
 require '../vendor/autoload.php';
 
-/**
- * Paramètre route donne la vue concernée
- * article => single.php
- * sinon home.php
- */
-try {
-    if (isset($_GET['route'])) {
-        if ($_GET['route'] === 'article') {
-            require '../templates/single.php';
-        } else {
-            echo "Page inconnue";
-        }
-    } else {
-        require '../templates/home.php';
-    }
-} catch (Exception $e) {
-    echo 'Erreur';
-}
+//Lancement du routeur pour interprétation de la route demandée
+$router = new App\config\Router();
+$router->run();

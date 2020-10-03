@@ -1,12 +1,8 @@
 <?php
 
-//Utilisation de l'autoloader maison pour require les fichiers nécessaires
-require '../config/Autoloader.php';
-use App\config\Autoloader;
-Autoloader::register();
+//Appel à l'autoloader Composer
+require '../vendor/autoload.php';
 
-// Simplification des créations de classe avec primitive use
-// Fait référence aux namespaces des fichiers.
 use App\src\DAO\ArticleDAO;
 
 ?>

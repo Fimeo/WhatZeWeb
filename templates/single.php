@@ -1,14 +1,9 @@
 <?php
 //Affichage d'un article en particulier
 
-//Utilisation de l'autoloader maison pour require les fichiers nécessaires
-require '../config/Autoloader.php';
-use App\config\Autoloader;
-Autoloader::register();
+//Appel à l'autoloader Composer
+require '../vendor/autoload.php';
 
-// Simplification des créations de classe avec primitive use
-// Fait référence aux namespaces des fichiers.
-// Sinon il faudrait faire new App\src\DAO\ArticleDAO();
 use App\src\DAO\ArticleDAO;
 use App\src\DAO\CommentDAO;
 
@@ -47,10 +42,9 @@ use App\src\DAO\CommentDAO;
         <?php
         $comment = new CommentDAO();
         $comments = $comment->getCommentsFromArticle($_GET['articleId']);
-        while ($comment = $comments->fetch())
-        {
+        while ($comment = $comments->fetch()) {
             ?>
-            <h4><?= htmlspecialchars($comment->pseudo);?></h4>
+            <h4><?= htmlspecialchars($comment->pseudo); ?></h4>
             <p><?= htmlspecialchars($comment->content)?></p>
             <p>Posté le : <?= htmlspecialchars($comment->createdAt)?></p>
             <?php

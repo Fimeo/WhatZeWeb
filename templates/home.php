@@ -1,8 +1,5 @@
 <?php
 
-//Appel à l'autoloader Composer
-require '../vendor/autoload.php';
-
 use App\src\DAO\ArticleDAO;
 
 ?>
@@ -12,6 +9,7 @@ use App\src\DAO\ArticleDAO;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mon blog</title>
+    <link rel="stylesheet" href="../public/css/style.css">
 </head>
 <body>
     <h1>Mon blog</h1>
@@ -26,7 +24,7 @@ use App\src\DAO\ArticleDAO;
     while ($article = $articles->fetch()) {
         ?>
         <div>
-            <h2><a href="single.php?articleId=<?= htmlspecialchars($article->id)?>"><?= htmlspecialchars($article->title); ?></a></h2>
+            <h2><a href="../public/index.php?route=article&articleId=<?= htmlspecialchars($article->id)?>"><?= htmlspecialchars($article->title); ?></a></h2>
             <p><?= htmlspecialchars($article->content); ?></p>
             <p><?= htmlspecialchars($article->author); ?></p>
             <p>Crée le : <?= htmlspecialchars($article->createdAt); ?></p>

@@ -1,9 +1,6 @@
 <?php
 //Affichage d'un article en particulier
 
-//Appel à l'autoloader Composer
-require '../vendor/autoload.php';
-
 use App\src\DAO\ArticleDAO;
 use App\src\DAO\CommentDAO;
 
@@ -14,6 +11,7 @@ use App\src\DAO\CommentDAO;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/css/style.css">
     <title>Mon blog</title>
 </head>
 <body>
@@ -36,7 +34,7 @@ use App\src\DAO\CommentDAO;
     <?php
     $articles->closeCursor();
     ?>
-    <a href="home.php">Retour à l'accueil</a>
+    <a href="../public/index.php">Retour à l'accueil</a>
     <div id="id" class="text-left">
         <h3>Commentaires</h3>
         <?php

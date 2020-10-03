@@ -1,0 +1,46 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color: lightgray;
+  height: 100%;
+}
+
+body {
+  max-width: 1150px;
+  margin: 0 auto;
+  background-color: #f2f2f2;
+  padding: 20px;
+  height: 100%;
+}
+
+h1 {
+  text-align: center;
+  font-family: arial;
+  font-weight: 400;
+  font-size: 2em;
+  font-style: italic;
+}
+
+a {
+  text-decoration: none;
+  color: lightcoral
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+div h2 {
+  margin-bottom: 10px;
+}
+
+div {
+  margin-bottom: 25px;
+}
+
+div p {
+  padding-left: 20px;
+}

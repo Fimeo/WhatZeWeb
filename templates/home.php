@@ -1,8 +1,9 @@
 <?php
-//Include de la connexion à la base de données.
-require '../src/DAO/DAO.php';
 
-require '../src/DAO/ArticleDAO.php';
+//Utilisation de l'autoloader maison pour require les fichiers nécessaires
+require '../config/Autoloader.php';
+use App\config\Autoloader;
+Autoloader::register();
 
 // Simplification des créations de classe avec primitive use
 // Fait référence aux namespaces des fichiers.

@@ -1,11 +1,10 @@
 <?php
 //Affichage d'un article en particulier
 
-require '../src/DAO/DAO.php';
-
-require '../src/DAO/ArticleDAO.php';
-
-require '../src/DAO/CommentDAO.php';
+//Utilisation de l'autoloader maison pour require les fichiers nécessaires
+require '../config/Autoloader.php';
+use App\config\Autoloader;
+Autoloader::register();
 
 // Simplification des créations de classe avec primitive use
 // Fait référence aux namespaces des fichiers.

@@ -33,7 +33,7 @@ class FrontController
      */
     public function article($articleId)
     {
-        $articles = $this->articleDAO->getArticle($articleId);
+        $article = $this->articleDAO->getArticle($articleId);
         $comments = $this->commentDAO->getCommentsFromArticle($articleId);
         require '../templates/single.php';
     }

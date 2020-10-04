@@ -11,7 +11,7 @@ use Exception;
  */
 abstract class DAO
 {
-    private $connection;
+    private $PDOconnection;
 
     /**
      * Renvoie la connexion si elle est établie, sinon établie la connexion
@@ -19,11 +19,11 @@ abstract class DAO
      */
     private function check_connection()
     {
-        if ($this->connection === null) {
+        if ($this->PDOconnection === null) {
             return $this->getConnection();
         }
         
-        return $this->connection;
+        return $this->PDOconnection;
     }
 
     /**
@@ -33,9 +33,9 @@ abstract class DAO
     private function getConnection()
     {
         try {
-            $connection = new PDO(DB_HOST, DB_USER, DB_PASS);
-            $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            return $connection;
+            $PDOconnection = new PDO(DB_HOST, DB_USER, DB_PASS);
+            $PDOconnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            return $PDOconnection;
         } catch (Exception $errorConnection) {
             die('Erreur de connexion à la base de données : ' . $errorConnection->getMessage());
         }
@@ -51,13 +51,10 @@ abstract class DAO
         // Si il y a des paramètres, requête préparée
         if ($parameters) {
             $result = $this->check_connection()->prepare($sql);
-            //Conversion des données reçues en objet de la classe appelante
-            $result->setFetchMode(PDO::FETCH_CLASS, static::class);
             $result->execute($parameters);
             return $result;
         }
         $result = $this->check_connection()->query($sql);
-        $result->setFetchMode(PDO::FETCH_CLASS, static::class);
         return $result;
     }
 }

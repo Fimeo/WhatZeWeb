@@ -11,18 +11,17 @@
     <p>En construction</p>
     <?php
     //Affichage des données reçues
-    while ($article = $articles->fetch()) {
+    foreach ($articles as $article) {
         ?>
         <div>
-            <h2><a href="../public/index.php?route=article&articleId=<?= htmlspecialchars($article->id)?>"><?= htmlspecialchars($article->title); ?></a></h2>
-            <p><?= htmlspecialchars($article->content); ?></p>
-            <p><?= htmlspecialchars($article->author); ?></p>
-            <p>Crée le : <?= htmlspecialchars($article->createdAt); ?></p>
+            <h2><a href="../public/index.php?route=article&articleId=<?= htmlspecialchars($article->getId())?>"><?= htmlspecialchars($article->getTitle()); ?></a></h2>
+            <p><?= htmlspecialchars($article->getContent()); ?></p>
+            <p><?= htmlspecialchars($article->getAuthor()); ?></p>
+            <p>Crée le : <?= htmlspecialchars($article->getCreatedAt()); ?></p>
         </div>
         <br>
         <?php
     }
-    $articles->closeCursor();
     ?>
 </body>
 </html>

@@ -4,5 +4,8 @@
       "App\\src\\":"src/",
       "App\\config\\":"config/"
     }
- }
+ },
+  "require": {
+    "ext-pdo": "*"
+  }
 }

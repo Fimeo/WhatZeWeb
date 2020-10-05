@@ -4,48 +4,23 @@ namespace App\src\DAO;
 
 use PDO;
 use Exception;
+use PDOStatement;
 
 /**
- * Classe concernant la base de données.
- * Gère la connexion à la base de données
+ * Class DAO gestion de la connexion à la base de données
+ * @package App\src\DAO
  */
 abstract class DAO
 {
     private $PDOconnection;
 
     /**
-     * Renvoie la connexion si elle est établie, sinon établie la connexion
-     * et la renvoie.
+     * Création d'une requête et exécution sur la base de données. Avec ou sans paramètres.
+     * @param $sql string Requête sql textuelle à effectuer
+     * @param null $parameters Paramètres de requête pour requête préparée
+     * @return bool|PDOStatement Résultat brute de la requête, false si échec.
      */
-    private function check_connection()
-    {
-        if ($this->PDOconnection === null) {
-            return $this->getConnection();
-        }
-        
-        return $this->PDOconnection;
-    }
-
-    /**
-     * Connexion à la base de données
-     * Retourne l'instance PDO de la base de données si réussie
-     */
-    private function getConnection()
-    {
-        try {
-            $PDOconnection = new PDO(DB_HOST, DB_USER, DB_PASS);
-            $PDOconnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            return $PDOconnection;
-        } catch (Exception $errorConnection) {
-            die('Erreur de connexion à la base de données : ' . $errorConnection->getMessage());
-        }
-    }
-
-    /**
-     * Gère les requête sur la base de données, requête préparée si utilisation
-     * de paramètres. Retourne le résultat de la requête.
-     */
-    public function createQuery($sql, $parameters=null)
+    public function createQuery($sql, $parameters = null)
     {
         // Utilisation de la même connexion si plusieurs requêtes
         // Si il y a des paramètres, requête préparée
@@ -56,5 +31,32 @@ abstract class DAO
         }
         $result = $this->check_connection()->query($sql);
         return $result;
+    }
+
+    /** Renvoie la connexion actuelle à la base de données, créée si besoin
+     * @return PDO Connexion à la base de données
+     */
+    private function check_connection()
+    {
+        if ($this->PDOconnection === null) {
+            return $this->getConnection();
+        }
+        return $this->PDOconnection;
+    }
+    
+    /**
+     * Etablissement de la connexion à la base de données, les données de
+     * configuration sont contenues dans le fichier dev.php
+     * @return PDO Connexion à la base de données
+     */
+    private function getConnection()
+    {
+        try {
+            $PDOconnection = new PDO(DB_HOST, DB_USER, DB_PASS);
+            $PDOconnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            return $PDOconnection;
+        } catch (Exception $errorConnection) {
+            die('Erreur de connexion à la base de données : ' . $errorConnection->getMessage());
+        }
     }
 }

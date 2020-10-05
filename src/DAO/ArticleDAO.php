@@ -2,6 +2,7 @@
 
 namespace App\src\DAO;
 
+use App\config\Parameter;
 use App\src\model\Article;
 
 /**
@@ -66,13 +67,15 @@ class ArticleDAO extends DAO
 
     /**
      * Ajout d'un article dans la base de données
-     * @param $row array Données de l'article à insérer dans la base de données
+     * @param $post Parameter Données de l'article à insérer dans la base de données
      */
-    public function addArticle($row)
+    public function addArticle(Parameter $post)
     {
-        //Exctraction des variables du tableau associatif post
-        extract($row);
         $sql = 'INSERT INTO article (title, content, author, createdAt) VALUES (?,?,?,NOW())';
-        $this->createQuery($sql, [$title, $content, $author]);
+        $this->createQuery($sql, [
+            $post->get('title'),
+            $post->get('content'),
+            $post->get('author')
+        ]);
     }
 }

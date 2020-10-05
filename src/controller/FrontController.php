@@ -2,28 +2,13 @@
 
 namespace App\src\controller;
 
-use App\src\DAO\ArticleDAO;
-use App\src\DAO\CommentDAO;
-use App\src\model\View;
-
 /**
  * Class FrontController
  * Contrôleur qui gère ce qui est accessible à tout le monde
  * @package App\src\controller
  */
-class FrontController
+class FrontController extends Controller
 {
-    private $articleDAO;
-    private $commentDAO;
-    private $view;
-
-    public function __construct()
-    {
-        $this->articleDAO = new ArticleDAO();
-        $this->commentDAO = new CommentDAO();
-        $this->view = new View();
-    }
-
     /**
      * Gère l'affichage de la page d'accueil du site
      * i.e. tous les billets disponibles

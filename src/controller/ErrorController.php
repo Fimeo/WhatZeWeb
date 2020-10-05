@@ -2,21 +2,11 @@
 
 namespace App\src\controller;
 
-use App\src\model\View;
-
 /**
  * Contrôleur qui gère les erreurs de manière centralisée
  */
-class ErrorController
+class ErrorController extends Controller
 {
-
-    private $view;
-
-    public function __construct()
-    {
-        $this->view = new View();
-    }
-
     /** Gestion des vues lors d'une page non trouvée 404 */
     public function errorNotFound()
     {

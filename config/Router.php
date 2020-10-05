@@ -12,16 +12,17 @@ use Exception;
  */
 class Router
 {
-    private $frontController;
-    private $errorController;
+    private FrontController $frontController;
+    private ErrorController $errorController;
 
     public function __construct()
     {
         $this->frontController = new FrontController();
         $this->errorController = new ErrorController();
     }
+
     /**
-     * Inclusion de la vue demandée
+     * Gestion des routes, redirection vers le module demandé
      * Routes disponibles :
      * article => single.php
      * default => home.php

@@ -1,12 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon blog</title>
-</head>
-<body>
-    <p>Erreur serveur</p>
-    <p><a href="../public/index.php"></a></p>
-</body>
-</html>
+<?php $this->title = "Erreur serveur" ?>
+<p>Erreur serveur, merci de réesayer</p>
+<p><a href="../public/index.php">Retour à l'accueil</a></p>

@@ -30,3 +30,8 @@ Structure des dossiers de l'application:
 
 Génération des fichiers autoload :
 `composer dump-autoload`
+
+
+### Points d'amélioration du projet
+* Controler les données envoyées par les formulaires
+* Empecher de modificer, supprimer un article en modifiant l'``articleId `` dans les paramètres d'url

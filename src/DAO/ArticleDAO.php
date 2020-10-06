@@ -78,4 +78,20 @@ class ArticleDAO extends DAO
             $post->get('author')
         ]);
     }
+
+    /**
+     * Mise à jour d'un article dans la base de données avec les données reçes
+     * @param Parameter $post Données mises à jour
+     * @param $articleId int Identifiant de l'article à modifier
+     */
+    public function editArticle(Parameter $post, $articleId)
+    {
+        $sql = 'UPDATE article SET title=:title, content=:content, author=:author WHERE id=:articleId';
+        $this->createQuery($sql, [
+            'title' => $post->get('title'),
+            'content' => $post->get('content'),
+            'author' => $post->get('author'),
+            'articleId' => $articleId
+        ]);
+    }
 }

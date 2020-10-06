@@ -28,4 +28,26 @@ class BackController extends Controller
             'post' => $post
         ]);
     }
+
+    /**
+     * Modification d'un article dans la base de données
+     * Si des données post sont transmises, on met à jour,
+     * sinon on affiche la page de modification de l'article
+     * @param Parameter $post Données mises à jour
+     * @param $articleId Identifiant de l'article à modifier
+     */
+    public function editArticle(Parameter $post, $articleId)
+    {
+        $article = $this->articleDAO->getArticle($articleId);
+
+        if ($post->get('submit')) {
+            $this->articleDAO->editArticle($post, $articleId);
+            $this->session->set('edit_article', 'L\'article à bien été mis à jour');
+            header('Location: ../public/index.php');
+        }
+        //Si le formulaire n'a pas été soumis, on affiche l'article à modifier
+        $this->view->render('edit_article', [
+            'article' => $article
+        ]);
+    }
 }

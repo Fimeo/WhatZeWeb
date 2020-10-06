@@ -20,6 +20,8 @@ class BackController extends Controller
         //Si le formulaire d'ajout à été soumis
         if ($post->get('submit')) {
             $this->articleDAO->addArticle($post);
+            //Création d'un message à afficher dans la session
+            $this->session->set('add_article', 'Le nouvel article à bien été ajouté');
             header('Location: ../public/index.php');
         }
         $this->view->render('add_article', [

@@ -2,21 +2,25 @@
 
 namespace App\src\model;
 
+use App\config\Request;
+use App\config\Session;
+
 /**
  * Class View s'occupe de la gestion des vues
  * @package App\src\model
  */
 class View
 {
-    /**
-     * @var string du fichier à inclure
-     */
-    private $file;
+    private string $file;
+    private string $title;
+    private Request $request;
+    private Session $session;
 
-    /**
-     * @var string Titre de la page
-     */
-    private $title;
+    public function __construct()
+    {
+        $this->request = new Request();
+        $this->session = $this->request->getSession();
+    }
 
     /**
      * Création de la vue associée au template demandé,
@@ -43,7 +47,7 @@ class View
      * @param $data array Données à afficher dans le template
      * @return false|string
      */
-    private function renderFile($file, $data)
+    private function renderFile(string $file, array $data)
     {
         if (file_exists($file)) {
             extract($data);

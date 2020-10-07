@@ -17,7 +17,7 @@ foreach ($articles as $article) {
         <h2>
             <a href="../public/index.php?route=article&articleId=<?= htmlspecialchars($article->getId()) ?>"><?= htmlspecialchars($article->getTitle()); ?></a>
         </h2>
-        <p><?= htmlspecialchars($article->getContent()); ?></p>
+        <p><?= nl2br(htmlspecialchars($article->getContent())); ?></p>
         <p><?= htmlspecialchars($article->getAuthor()); ?></p>
         <p>Crée le : <?= htmlspecialchars($article->getCreatedAt()); ?></p>
     </div>

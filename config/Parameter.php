@@ -40,4 +40,13 @@ class Parameter
     {
         $this->parameter[$name] = $value;
     }
+
+    /**
+     * Renvoie toutes les données de la classe
+     * @return array Données de la classe
+     */
+    public function all()
+    {
+        return $this->parameter;
+    }
 }

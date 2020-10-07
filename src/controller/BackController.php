@@ -19,14 +19,23 @@ class BackController extends Controller
     {
         //Si le formulaire d'ajout à été soumis
         if ($post->get('submit')) {
-            $this->articleDAO->addArticle($post);
-            //Création d'un message à afficher dans la session
-            $this->session->set('add_article', 'Le nouvel article à bien été ajouté');
-            header('Location: ../public/index.php');
+            //Validation des données avant soumission à la BD
+            $errors = $this->validation->validate($post, 'Article');
+            if (!$errors) {
+                $this->articleDAO->addArticle($post);
+                //Création d'un message à afficher dans la session
+                $this->session->set('add_article', 'Le nouvel article à bien été ajouté');
+                header('Location: ../public/index.php');
+            }
+            //Si il y a des erreurs, tjrs en modification avec données et errors en plus
+            $this->view->render('add_article', [
+                'post' => $post,
+                'errors' => $errors
+            ]);
+            return;
         }
-        $this->view->render('add_article', [
-            'post' => $post
-        ]);
+        //Si aucune données POST, création d'un article
+        $this->view->render('add_article');
     }
 
     /**
@@ -41,13 +50,27 @@ class BackController extends Controller
         $article = $this->articleDAO->getArticle($articleId);
 
         if ($post->get('submit')) {
-            $this->articleDAO->editArticle($post, $articleId);
-            $this->session->set('edit_article', 'L\'article à bien été mis à jour');
-            header('Location: ../public/index.php');
+            $errors = $this->validation->validate($post, 'Article');
+            if(!$errors) {
+                $this->session->set('edit_article', 'L\'article à bien été mis à jour');
+                $this->articleDAO->editArticle($post, $articleId);
+                header('Location: ../public/index.php');
+            }
+            //Si il y a des erreurs, affichage avec les données soumises et erreurs
+            $this->view->render('edit_article', [
+                'post' => $post,
+                'errors' => $errors
+            ]);
+            return;
         }
+        //Edition d'un article, données brutes de la base
+        $post->set('id', $article->getId());
+        $post->set('title', $article->getTitle());
+        $post->set('content', $article->getContent());
+        $post->set('author', $article->getAuthor());
         //Si le formulaire n'a pas été soumis, on affiche l'article à modifier
         $this->view->render('edit_article', [
-            'article' => $article
+            'post' => $post
         ]);
     }
 }

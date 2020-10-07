@@ -54,6 +54,7 @@ class Router
             }
         } catch (Exception $e) {
             $this->errorController->errorServer();
+            //echo $e->getMessage();
         }
     }
 }

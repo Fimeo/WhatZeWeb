@@ -8,6 +8,8 @@ use App\src\DAO\ArticleDAO;
 use App\src\DAO\CommentDAO;
 use App\src\model\View;
 use App\config\Request;
+use App\src\constraint\Validation;
+use App\config\Session;
 
 /**
  * Class Controller abstraite, généralisation de  l'usage des controlleurs
@@ -21,7 +23,8 @@ abstract class Controller
     private Request $request;
     protected Parameter $get;
     protected Parameter $post;
-    protected $session;
+    protected Session $session;
+    protected Validation $validation;
 
     public function __construct()
     {
@@ -29,6 +32,7 @@ abstract class Controller
         $this->commentDAO = new CommentDAO();
         $this->view = new View();
         $this->request = new Request();
+        $this->validation = new Validation();
         $this->get = $this->request->getGet();
         $this->post = $this->request->getPost();
         $this->session = $this->request->getSession();

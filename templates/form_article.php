@@ -2,20 +2,29 @@
 /**
  * Si existance d'un article, alors on affiche ses données pré-remplies => modification
  * Sinon champs vide => insertion
+ * Affichage des erreurs de validation des données sous les champs correspondants
+ *
+ * La route générée est :
+ * Si données POST : edition donc editArticle pour modification
+ * Si pas de données POST : addArticle pour ajout
  */
 
-$route = isset($article) && $article->getId() ? 'editArticle&articleId=' . $article->getId() : 'addArticle';
-$title = isset($article) && $article->getTitle() ? htmlspecialchars($article->getTitle()) : '';
-$content = isset($article) && $article->getContent() ? htmlspecialchars($article->getContent()) : '';
-$author = isset($article) && $article->getAuthor() ? htmlspecialchars($article->getAuthor()) : '';
+$route = isset($post) && $post->get('id') ? 'editArticle&articleId=' . $post->get('id') : 'addArticle';
+$title = isset($post) ? htmlspecialchars($post->get('title')) : '';
+$content = isset($post) ? htmlspecialchars($post->get('content')) : '';
+$author = isset($post) ? htmlspecialchars($post->get('author')) : '';
 $submit = $route === 'addArticle' ? 'Envoyer' : 'Mettre à jour';
+var_dump($post);
 ?>
 <form action="../public/index.php?route=<?= $route; ?>" method="post">
     <label for="title">Titre</label><br>
     <input type="text" id="title" name="title" value="<?= $title; ?>"><br>
+    <?= isset($errors['title']) ? $errors['title'] : '' ?>
     <label for="content">Contenu</label><br>
     <textarea name="content" id="contenu" cols="30" rows="10"><?= $content; ?></textarea><br>
+    <?= isset($errors['content']) ? $errors['content'] : '' ?>
     <label for="author">Auteur</label><br>
     <input type="text" id="author" name="author" value="<?= $author; ?>"><br>
+    <?= isset($errors['author']) ? $errors['author'] : '' ?>
     <input type="submit" value="<?= $submit; ?>" id="submit" name="submit">
 </form>

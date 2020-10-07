@@ -20,7 +20,7 @@
     foreach ($comments as $comment) {
         ?>
         <h4><?= htmlspecialchars($comment->getPseudo()); ?></h4>
-        <p><?= htmlspecialchars($comment->getContent()) ?></p>
+        <p><?= nl2br(htmlspecialchars($comment->getContent())) ?></p>
         <p>Posté le : <?= htmlspecialchars($comment->getCreatedAt()) ?></p>
         <?php
     }

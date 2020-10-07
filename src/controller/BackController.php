@@ -17,6 +17,7 @@ class BackController extends Controller
      */
     public function addArticle(Parameter $post)
     {
+        $post->trimAll();
         //Si le formulaire d'ajout à été soumis
         if ($post->get('submit')) {
             //Validation des données avant soumission à la BD
@@ -49,6 +50,7 @@ class BackController extends Controller
      */
     public function editArticle(Parameter $post, $articleId)
     {
+        $post->trimAll();
         $article = $this->articleDAO->getArticle($articleId);
 
         if ($post->get('submit')) {
@@ -86,6 +88,17 @@ class BackController extends Controller
         $this->articleDAO->deleteArticle($articleId);
         //TODO : vérifier si suppression effective pour enregistrer le message dans la session
         $this->session->set('delete_article', 'Article supprimé avec succès');
+        header('Location: ../public/index.php');
+    }
+
+    /**
+     * Suppression d'un commentaire dans la base de données
+     * @param $commentId mixed Identifiant du commentaire à supprimer
+     */
+    public function deleteComment($commentId)
+    {
+        $this->commentDAO->deleteComment($commentId);
+        $this->session->set('delete_comment', 'Suppression du commentaire effectuée');
         header('Location: ../public/index.php');
     }
 }

@@ -15,7 +15,7 @@ class CommentDAO extends DAO
      */
     public function getCommentsFromArticle($articleId)
     {
-        $sql = 'SELECT id, pseudo, content, createdAt FROM comment WHERE article_id = ? ORDER BY createdAt DESC';
+        $sql = 'SELECT id, pseudo, content, createdAt, flag FROM comment WHERE article_id = ? ORDER BY createdAt DESC';
         $result = $this->createQuery($sql, [$articleId]);
         $comments = [];
         foreach($result as $row) {
@@ -37,16 +37,42 @@ class CommentDAO extends DAO
         $comment->setPseudo($row['pseudo']);
         $comment->setContent($row['content']);
         $comment->setCreatedAt($row['createdAt']);
+        $comment->setFlag($row['flag']);
         return $comment;
     }
 
     public function addComment(Parameter $post, $articleId)
     {
-        $sql = 'INSERT INTO comment (pseudo, content, createdAt, article_id) VALUES (?, ?, NOW(), ?)';
+        $sql = 'INSERT INTO comment (pseudo, content, createdAt, article_id, flag) VALUES (?, ?, NOW(), ?, 0)';
         $this->createQuery($sql, [
             $post->get('pseudo'),
             $post->get('content'),
             $articleId
+        ]);
+    }
+
+    /**
+     * Signalement d'un commentaire, reviens à mettre le flag à true
+     * @param $commentId mixed Identifiant du commentaire
+     */
+    public function flagComment($commentId)
+    {
+        $sql = 'UPDATE comment SET flag=:flag WHERE id=:id';
+        $this->createQuery($sql, [
+            'flag' => 1,
+            'id' => $commentId
+        ]);
+    }
+
+    /**
+     * Suppression du commentaire avec identifiant commentId dans la base de données
+     * @param $commentId mixed Identifiant du commentaire concerné
+     */
+    public function deleteComment($commentId)
+    {
+        $sql = 'DELETE FROM comment WHERE id=:id';
+        $this->createQuery($sql, [
+            'id' => $commentId
         ]);
     }
 }

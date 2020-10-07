@@ -5,6 +5,8 @@
 <?= $this->session->show('edit_article'); ?>
 <?= $this->session->show('delete_article'); ?>
 <?= $this->session->show('add_comment'); ?>
+<?= $this->session->show('flag_comment'); ?>
+<?= $this->session->show('delete_comment'); ?>
 <div>
     <h2><?= htmlspecialchars($article->getTitle()); ?></h2>
     <p><?= nl2br(htmlspecialchars($article->getContent())); ?></p>
@@ -27,6 +29,13 @@
         <p><?= nl2br(htmlspecialchars($comment->getContent())) ?></p>
         <p>Posté le : <?= htmlspecialchars($comment->getCreatedAt()) ?></p>
         <?php
+        if ($comment->isFlag()) {
+            ?><p class="flag">Ce commentaire à été signalé</p>
+            <?php
+        } else {
+            ?><p><a href="../public/index.php?route=flagComment&commentId=<?= $comment->getId() ?>">Signaler le commentaire</a></p>
+        <?php }
+        ?><p><a href="../public/index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>">Supprimer le commentaire</a></p><?php
     }
     ?>
 </div>

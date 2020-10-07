@@ -42,3 +42,7 @@ div {
 div p {
   padding-left: 20px;
 }
+
+.flag {
+  color: #e74c4c;
+}

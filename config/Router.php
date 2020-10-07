@@ -33,6 +33,8 @@ class Router
      * addArticle => création d'un nouvel article
      * editArticle => mise à jour d'un article
      * deleteArticle => suppression d'un article
+     * flagComment => signaler un commentaire d'article
+     * deleteComment => suppresion d'un commentaire uniquement
      * default => page d'accueil du blog
      */
     public function run()
@@ -52,6 +54,10 @@ class Router
                     $this->backController->deleteArticle($articleId);
                 } else if ($route === 'addComment') {
                     $this->frontController->addComment($post, $articleId);
+                } else if ($route === 'flagComment') {
+                    $this->frontController->flagComment($this->request->getGet()->get('commentId'));
+                } else if ($route === 'deleteComment') {
+                    $this->backController->deleteComment($this->request->getGet()->get('commentId'));
                 } else {
                     $this->errorController->errorNotFound();
                 }

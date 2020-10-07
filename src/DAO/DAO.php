@@ -2,6 +2,7 @@
 
 namespace App\src\DAO;
 
+use http\Exception\InvalidArgumentException;
 use PDO;
 use Exception;
 use PDOStatement;
@@ -27,9 +28,12 @@ abstract class DAO
         if ($parameters) {
             $result = $this->check_connection()->prepare($sql);
             $result->execute($parameters);
-            return $result;
+        } else {
+            $result = $this->check_connection()->query($sql);
         }
-        $result = $this->check_connection()->query($sql);
+        //if ($result->rowCount())
+        //    return $result;
+        //throw new InvalidArgumentException('Empty query');
         return $result;
     }
 

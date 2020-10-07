@@ -69,4 +69,15 @@ class FrontController extends Controller
             header('Location: ../public/index.php');
         }
     }
+
+    /**
+     * Signalement d'un commentaire par un utilisateur
+     * @param $commentId mixed Identifiant du commentaire
+     */
+    public function flagComment($commentId)
+    {
+        $this->commentDAO->flagComment($commentId);
+        $this->session->set('flag_comment', 'Le commentaire à bien été signalé, merci');
+        header('Location: ../public/index.php');
+    }
 }

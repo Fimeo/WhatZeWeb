@@ -4,7 +4,7 @@
 namespace App\config;
 
 /**
- * Class Parameter, utilisation objet des supergloblaes GET, POST et SESSION
+ * Class Parameter, utilisation objet des supergloblaes GET, POST
  * @package App\config
  */
 class Parameter
@@ -33,12 +33,13 @@ class Parameter
 
     /**
      * Ajoute ou met à jour un paramètre
+     * Espaces avant et après supprimés
      * @param $name string Nom du paramètre
      * @param $value mixed Valeur du paramètre
      */
     public function set($name, $value)
     {
-        $this->parameter[$name] = $value;
+        $this->parameter[$name] = trim($value);
     }
 
     /**
@@ -48,5 +49,26 @@ class Parameter
     public function all()
     {
         return $this->parameter;
+    }
+
+    /**
+     * Applique la fonction trim sur chaque entrée de parameter
+     * Permet de supprimer les espaces avant et après une chaine de caractères
+     */
+    public function trimAll()
+    {
+        foreach ($this->parameter as $name => $value) {
+            $this->trim($name, $value);
+        }
+    }
+
+    /**
+     * Applique la fonction trim sur une entree de parameter
+     * @param $name string Nom du paramètre de parameter
+     * @param $value mixed Valeur à trim
+     */
+    public function trim($name, $value)
+    {
+        $this->parameter[$name] = trim($value);
     }
 }

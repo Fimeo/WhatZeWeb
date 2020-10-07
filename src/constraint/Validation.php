@@ -21,6 +21,9 @@ class Validation
         if($name === 'Article') {
             $articleValidation = new ArticleValidation();
             return $articleValidation->check($data);
+        } else if ($name === 'Comment') {
+            $commentValidation = new CommentValidation();
+            return $commentValidation->check($data);
         }
     }
 }

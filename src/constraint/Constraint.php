@@ -21,7 +21,7 @@ class Constraint
      */
     public function notBlank($name, $value)
     {
-        if (empty($value)) {
+        if (empty($value) || trim($value) === '') {
             return "<p>Le champ $name saisi ne doit pas être vide</p>";
         }
     }

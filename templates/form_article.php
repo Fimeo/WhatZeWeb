@@ -14,7 +14,6 @@ $title = isset($post) ? htmlspecialchars($post->get('title')) : '';
 $content = isset($post) ? htmlspecialchars($post->get('content')) : '';
 $author = isset($post) ? htmlspecialchars($post->get('author')) : '';
 $submit = $route === 'addArticle' ? 'Envoyer' : 'Mettre à jour';
-var_dump($post);
 ?>
 <form action="../public/index.php?route=<?= $route; ?>" method="post">
     <label for="title">Titre</label><br>

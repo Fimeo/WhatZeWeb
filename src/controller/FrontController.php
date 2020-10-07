@@ -2,6 +2,8 @@
 
 namespace App\src\controller;
 
+use App\config\Parameter;
+
 /**
  * Class FrontController
  * Contrôleur qui gère ce qui est accessible à tout le monde
@@ -33,5 +35,38 @@ class FrontController extends Controller
             'article' => $article,
             'comments' => $comments
         ]);
+    }
+
+    /**
+     * Si données d'ajout de commentaire reçues et données validées, insertion dans BD
+     * Sinon
+     * @param Parameter $post
+     * @param $articleId
+     */
+    public function addComment(Parameter $post, $articleId)
+    {
+        $post->trimAll();
+        $article = $this->articleDAO->getArticle($articleId);
+        $comments = $this->commentDAO->getCommentsFromArticle($articleId);
+
+        //Si formulaire POST soumis, on insère le commentaire si les données sont valides
+        if ($post->get('submit')) {
+            $errors = $this->validation->validate($post, 'Comment');
+            if (!$errors) {
+                $this->commentDAO->addComment($post, $articleId);
+                $this->session->set('add_comment', 'Le commentaire à bien été ajouté');
+                header('Location: ../public/index.php?route=article&articleId=' . $articleId);
+            } else {
+                $this->view->render('single', [
+                    'article' => $article,
+                    'comments' => $comments,
+                    'errors' => $errors,
+                    'post' => $post
+                ]);
+            }
+        } else {
+            //Si aucun formulaire soumis, redirection vers home
+            header('Location: ../public/index.php');
+        }
     }
 }

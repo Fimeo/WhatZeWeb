@@ -39,16 +39,19 @@ class Router
     {
         $route = $this->request->getGet()->get('route');
         $articleId = $this->request->getGet()->get('articleId');
+        $post = $this->request->getPost();
         try {
             if (isset($route)) {
                 if ($route === 'article') {
                     $this->frontController->article($articleId);
                 } else if ($route === 'addArticle') {
-                    $this->backController->addArticle($this->request->getPost());
+                    $this->backController->addArticle($post);
                 } else if ($route === 'editArticle') {
-                    $this->backController->editArticle($this->request->getPost(), $articleId);
+                    $this->backController->editArticle($post, $articleId);
                 } else if ($route === 'deleteArticle') {
                     $this->backController->deleteArticle($articleId);
+                } else if ($route === 'addComment') {
+                    $this->frontController->addComment($post, $articleId);
                 } else {
                     $this->errorController->errorNotFound();
                 }

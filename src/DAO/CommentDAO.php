@@ -3,6 +3,7 @@
 namespace App\src\DAO;
 
 use App\src\model\Comment;
+use App\config\Parameter;
 
 /**
  * Classe qui gère les commentaires sur le site.
@@ -37,5 +38,15 @@ class CommentDAO extends DAO
         $comment->setContent($row['content']);
         $comment->setCreatedAt($row['createdAt']);
         return $comment;
+    }
+
+    public function addComment(Parameter $post, $articleId)
+    {
+        $sql = 'INSERT INTO comment (pseudo, content, createdAt, article_id) VALUES (?, ?, NOW(), ?)';
+        $this->createQuery($sql, [
+            $post->get('pseudo'),
+            $post->get('content'),
+            $articleId
+        ]);
     }
 }

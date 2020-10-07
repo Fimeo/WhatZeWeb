@@ -33,5 +33,4 @@ Génération des fichiers autoload :
 
 
 ### Points d'amélioration du projet
-* Controler les données envoyées par les formulaires
-* Empecher de modificer, supprimer un article en modifiant l'``articleId `` dans les paramètres d'url
+* Renvoyer sur l'accueil si articleId incorrect ou non précisé

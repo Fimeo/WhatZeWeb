@@ -25,17 +25,19 @@ class BackController extends Controller
                 $this->articleDAO->addArticle($post);
                 //Création d'un message à afficher dans la session
                 $this->session->set('add_article', 'Le nouvel article à bien été ajouté');
+                //TODO: Redirection vers l'article crée : nécessite de récupérer son id après création
                 header('Location: ../public/index.php');
+            } else {
+                //Si il y a des erreurs, tjrs en modification avec données et errors en plus
+                $this->view->render('add_article', [
+                    'post' => $post,
+                    'errors' => $errors
+                ]);
             }
-            //Si il y a des erreurs, tjrs en modification avec données et errors en plus
-            $this->view->render('add_article', [
-                'post' => $post,
-                'errors' => $errors
-            ]);
-            return;
+        } else {
+            //Si aucune données POST, création d'un article
+            $this->view->render('add_article');
         }
-        //Si aucune données POST, création d'un article
-        $this->view->render('add_article');
     }
 
     /**
@@ -43,7 +45,7 @@ class BackController extends Controller
      * Si des données post sont transmises, on met à jour,
      * sinon on affiche la page de modification de l'article
      * @param Parameter $post Données mises à jour
-     * @param $articleId Identifiant de l'article à modifier
+     * @param $articleId mixed Identifiant de l'article à modifier
      */
     public function editArticle(Parameter $post, $articleId)
     {
@@ -51,32 +53,38 @@ class BackController extends Controller
 
         if ($post->get('submit')) {
             $errors = $this->validation->validate($post, 'Article');
-            if(!$errors) {
+            if (!$errors) {
                 $this->session->set('edit_article', 'L\'article à bien été mis à jour');
                 $this->articleDAO->editArticle($post, $articleId);
-                header('Location: ../public/index.php');
+                header('Location: ../public/index.php?route=article&articleId=' . $articleId);
+            } else {
+                //Si il y a des erreurs, affichage avec les données soumises et erreurs
+                $this->view->render('edit_article', [
+                    'post' => $post,
+                    'errors' => $errors
+                ]);
             }
-            //Si il y a des erreurs, affichage avec les données soumises et erreurs
+        } else {
+            //Edition d'un article, données brutes de la base
+            $post->set('id', $article->getId());
+            $post->set('title', $article->getTitle());
+            $post->set('content', $article->getContent());
+            $post->set('author', $article->getAuthor());
+            //Si le formulaire n'a pas été soumis, on affiche l'article à modifier
             $this->view->render('edit_article', [
-                'post' => $post,
-                'errors' => $errors
+                'post' => $post
             ]);
-            return;
         }
-        //Edition d'un article, données brutes de la base
-        $post->set('id', $article->getId());
-        $post->set('title', $article->getTitle());
-        $post->set('content', $article->getContent());
-        $post->set('author', $article->getAuthor());
-        //Si le formulaire n'a pas été soumis, on affiche l'article à modifier
-        $this->view->render('edit_article', [
-            'post' => $post
-        ]);
     }
 
+    /**
+     * Suppresion d'un article dans la base de données suivant son identifiant
+     * @param $articleId Identifiant de l'article à supprimer
+     */
     public function deleteArticle($articleId)
     {
         $this->articleDAO->deleteArticle($articleId);
+        //TODO : vérifier si suppression effective pour enregistrer le message dans la session
         $this->session->set('delete_article', 'Article supprimé avec succès');
         header('Location: ../public/index.php');
     }

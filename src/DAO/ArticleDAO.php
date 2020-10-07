@@ -94,4 +94,22 @@ class ArticleDAO extends DAO
             'articleId' => $articleId
         ]);
     }
+
+    /**
+     * Suppresion d'un article dans la base de données
+     * Attention, une fk associe les articles aux commentaires
+     * Donc il faut supprimer les commentaires et l'article pour supprimer un article
+     * @param $articleId int Identifiant de l'article
+     */
+    public function deleteArticle($articleId)
+    {
+        $sql = 'DELETE FROM comment WHERE article_id=:id';
+        $this->createQuery($sql, [
+           'id' => $articleId
+        ]);
+        $sql = 'DELETE FROM article WHERE id=:id';
+        $this->createQuery($sql, [
+            'id' => $articleId
+        ]);
+    }
 }

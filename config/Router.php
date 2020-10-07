@@ -32,6 +32,7 @@ class Router
      * article => vue sur un article en particulier
      * addArticle => création d'un nouvel article
      * editArticle => mise à jour d'un article
+     * deleteArticle => suppression d'un article
      * default => page d'accueil du blog
      */
     public function run()
@@ -46,6 +47,8 @@ class Router
                     $this->backController->addArticle($this->request->getPost());
                 } else if ($route === 'editArticle') {
                     $this->backController->editArticle($this->request->getPost(), $articleId);
+                } else if ($route === 'deleteArticle') {
+                    $this->backController->deleteArticle($articleId);
                 } else {
                     $this->errorController->errorNotFound();
                 }
@@ -54,7 +57,7 @@ class Router
             }
         } catch (Exception $e) {
             $this->errorController->errorServer();
-            //echo $e->getMessage();
+            echo $e->getMessage();
         }
     }
 }

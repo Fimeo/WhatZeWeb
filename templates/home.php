@@ -7,7 +7,10 @@
 <?= $this->session->show('add_comment'); ?>
 <?= $this->session->show('flag_comment'); ?>
 <?= $this->session->show('delete_comment'); ?>
+<?= $this->session->show('register'); ?>
     <a href="../public/index.php?route=addArticle">Nouvel Article</a>
+    <a href="../public/index.php?route=login">Connexion</a>
+    <a href="../public/index.php?route=register">Inscription</a>
 <?php
 foreach ($articles as $article) {
     ?>

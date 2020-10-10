@@ -7,33 +7,6 @@ use App\config\Parameter;
 
 class ArticleValidation extends Validation
 {
-    private $errors = [];
-    private $constraint;
-
-    public function __construct()
-    {
-        $this->constraint = new Constraint();
-    }
-
-    /**
-     * Vérification des données contenues dans POST en fonction des contraites
-     * de validation de Constraint
-     * @param Parameter $post Données à vérifier
-     * @return array Tableau associatif d'erreurs pour les champs non validés
-     */
-    public function check(Parameter $post)
-    {
-        foreach ($post->all() as $key => $value) {
-            $this->checkField($key, $value);
-        }
-        return $this->errors;
-    }
-
-    /**
-     * Vérification du champs donné, appel les contraintes de validation liées au type de la donnée
-     * @param $name string Nom de la donnée
-     * @param $value mixed  Valeur de la donnée
-     */
     public function checkField($name, $value)
     {
         if ($name === 'title') {
@@ -41,10 +14,10 @@ class ArticleValidation extends Validation
             $error = $this->checkTitle($name, $value);
             //Ajoute une erreur si rencontrée
             $this->addError($name, $error);
-        } else if ($name === 'content') {
+        } elseif ($name === 'content') {
             $error = $this->checkContent($name, $value);
             $this->addError($name, $error);
-        } else if ($name === 'author') {
+        } elseif ($name === 'author') {
             $error = $this->checkAuthor($name, $value);
             $this->addError($name, $error);
         }
@@ -107,20 +80,6 @@ class ArticleValidation extends Validation
         }
         if ($this->constraint->maxLength($name, $value, 255)) {
             return $this->constraint->maxLength($name, $value, 255);
-        }
-    }
-
-    /**
-     * Ajoute une erreur dans le tableau associatif des erreurs si une erreur est donnée
-     * @param $name string Nom du champ incorrect
-     * @param $error null|string Contenu textuel de l'erreur
-     */
-    private function addError($name, $error)
-    {
-        if ($error) {
-            $this->errors += [
-                $name => $error
-            ];
         }
     }
 }

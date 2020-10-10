@@ -80,4 +80,33 @@ class FrontController extends Controller
         $this->session->set('flag_comment', 'Le commentaire à bien été signalé, merci');
         header('Location: ../public/index.php');
     }
+
+    /**
+     * Inscription sur le site
+     * @param $post Parameter Données utilisateur d'incription
+     */
+    public function register(Parameter $post)
+    {
+        //Si formulaire soumis
+        if ($post->get('submit')) {
+            $errors = $this->validation->validate($post, 'User');
+            $checkUser = $this->userDAO->checkUser($post);
+            if ($checkUser) {
+                //Ajoute une erreur avec un message renvoyé par checkUser
+                $errors['pseudo'] = $checkUser;
+            }
+            if (!$errors) {
+                $this->userDAO->register($post);
+                $this->session->set('register', 'Votre inscription à bien été effectuée');
+                header('Location: ../public/index.php');
+            } else {
+                $this->view->render('register', [
+                    'errors' => $errors,
+                    'post' => $post
+                ]);
+            }
+        } else {
+            $this->view->render('register');
+        }
+    }
 }

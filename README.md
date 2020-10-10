@@ -20,6 +20,7 @@ Structure des dossiers de l'application:
     - model : classes
     - controller : contrôleurs
     - DAO : managers Data Access Object
+    - constraint : contraintes de validation des données
 * <u>templates</u> : vues sur l'application
 
 ## Installation de Composer :
@@ -33,4 +34,3 @@ Génération des fichiers autoload :
 
 
 ### Points d'amélioration du projet
-* Renvoyer sur l'accueil si articleId incorrect ou non précisé

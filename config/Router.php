@@ -35,6 +35,8 @@ class Router
      * deleteArticle => suppression d'un article
      * flagComment => signaler un commentaire d'article
      * deleteComment => suppresion d'un commentaire uniquement
+     * login => Connexion utilisateur
+     * register => inscription sur le site
      * default => page d'accueil du blog
      */
     public function run()
@@ -46,17 +48,21 @@ class Router
             if (isset($route)) {
                 if ($route === 'article') {
                     $this->frontController->article($articleId);
-                } else if ($route === 'addArticle') {
+                } elseif ($route === 'addArticle') {
                     $this->backController->addArticle($post);
-                } else if ($route === 'editArticle') {
+                } elseif ($route === 'editArticle') {
                     $this->backController->editArticle($post, $articleId);
-                } else if ($route === 'deleteArticle') {
+                } elseif ($route === 'deleteArticle') {
                     $this->backController->deleteArticle($articleId);
-                } else if ($route === 'addComment') {
+                } elseif ($route === 'addComment') {
                     $this->frontController->addComment($post, $articleId);
-                } else if ($route === 'flagComment') {
+                } elseif ($route === 'flagComment') {
                     $this->frontController->flagComment($this->request->getGet()->get('commentId'));
-                } else if ($route === 'deleteComment') {
+                } elseif ($route === 'deleteComment') {
+                    $this->backController->deleteComment($this->request->getGet()->get('commentId'));
+                } elseif ($route === 'register') {
+                    $this->frontController->register($post);
+                } elseif ($route === 'login') {
                     $this->backController->deleteComment($this->request->getGet()->get('commentId'));
                 } else {
                     $this->errorController->errorNotFound();

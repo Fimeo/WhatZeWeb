@@ -6,6 +6,7 @@ use App\src\controller\FrontController;
 use App\src\controller\BackController;
 use App\src\controller\ErrorController;
 use Exception;
+use Error;
 
 /**
  * Classe Router
@@ -37,7 +38,11 @@ class Router
      * deleteComment => suppresion d'un commentaire uniquement
      * login => Connexion utilisateur
      * register => inscription sur le site
+     * profile => profil de l'utilisateur
+     * updatePassword => mise à jour du mot de passe
+     * logout => deconnexion utilisateur
      * default => page d'accueil du blog
+     * deleteAccount => suppresion de compte
      */
     public function run()
     {
@@ -63,7 +68,13 @@ class Router
                 } elseif ($route === 'register') {
                     $this->frontController->register($post);
                 } elseif ($route === 'login') {
-                    $this->backController->deleteComment($this->request->getGet()->get('commentId'));
+                    $this->frontController->login($post);
+                } elseif ($route === 'profile') {
+                    $this->backController->profile();
+                } elseif ($route === 'updatePassword') {
+                    $this->backController->updatePassword($post);
+                } elseif ($route === 'logout') {
+                    $this->backController->logout();
                 } else {
                     $this->errorController->errorNotFound();
                 }
@@ -73,6 +84,8 @@ class Router
         } catch (Exception $e) {
             $this->errorController->errorServer();
             echo $e->getMessage();
-        }
+        }// catch (Error $e) {
+        //    $this->errorController->errorNotFound();
+        //}
     }
 }

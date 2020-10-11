@@ -109,4 +109,32 @@ class FrontController extends Controller
             $this->view->render('register');
         }
     }
+
+    /**
+     * Page de connexion
+     * @param Parameter $post Données de connexion
+     */
+    public function login(Parameter $post)
+    {
+        //Si formulaire soumis, vérification de l'identité
+        //Stockage des infos de l'utilisateur dans la session
+        if ($post->get('submit')) {
+            $result = $this->userDAO->login($post);
+            if ($result && $result['isPasswordValid']) {
+                $this->session->set('login_message', 'Content de vous revoir');
+                $this->session->set('user', $result['result']);
+                $this->session->set('pseudo', $result['result']['pseudo']);
+                header('Location: ../public/index.php');
+            } else {
+                //Si mot de passe invalide, remet la page de connexion avec infos
+                $this->session->set('error_login', 'Le pseudo ou le mot de passe sont incorrects');
+                $this->view->render('login', [
+                    'post' => $post
+                ]);
+            }
+        } else {
+            //Si aucun formulaire soumis, retour page connexion
+            $this->view->render('login');
+        }
+    }
 }

@@ -38,8 +38,8 @@ class UserValidation extends Validation
             return $this->constraint->notBlank('password', $value);
         } elseif ($this->constraint->minLength($name, $value, 2)) {
             return $this->constraint->minLength('password', $value, 2);
-        } elseif ($this->constraint->maxLength($name, $value, 100)) {
-            return $this->constraint->maxLength('password', $value, 100);
+        } elseif ($this->constraint->maxLength($name, $value, 50)) {
+            return $this->constraint->maxLength('password', $value, 50);
         }
     }
 }

@@ -53,4 +53,16 @@ class Constraint
             return "<p>Le champs $name ne peut contenir plus de $maxSize caractères.</p>";
         }
     }
+
+    public function onlyLetters($name, $value) {
+        var_dump(preg_match('/^[A-Za-z]+$/', $value));
+    }
+
+    public function onlyLettersAndNumbers($name, $value) {
+        var_dump(preg_match('/^[A-Za-z0-9]+$/', $value));
+    }
+
+    public function withoutSpecialChars($name, $value) {
+        var_dump(preg_match('/^[A-Za-z0-9_-]+$/', $value));
+    }
 }

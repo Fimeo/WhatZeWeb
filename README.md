@@ -34,3 +34,4 @@ Génération des fichiers autoload :
 
 
 ### Points d'amélioration du projet
+* Ajout de champs pour création de comptes, email unique, password vérification stricte.

@@ -8,10 +8,27 @@
 <?= $this->session->show('flag_comment'); ?>
 <?= $this->session->show('delete_comment'); ?>
 <?= $this->session->show('register'); ?>
-    <a href="../public/index.php?route=addArticle">Nouvel Article</a>
-    <a href="../public/index.php?route=login">Connexion</a>
-    <a href="../public/index.php?route=register">Inscription</a>
+<?= $this->session->show('login_message'); ?>
+<?= $this->session->show('logout'); ?>
 <?php
+//Menu dynamique si l'utilisateur est connecté
+if ($this->session->get('pseudo')) :
+    ?>
+    <p>Bienvenue sur votre espace <?= ucfirst(htmlspecialchars($this->session->get('pseudo')))?></p>
+    <a href="../public/index.php?route=logout">Déconnexion</a>
+    <a href="../public/index.php?route=profile">Profil</a>
+    <a href="../public/index.php?route=addArticle">Nouvel article</a>
+<?php
+else:
+    ?>
+    <a href="../public/index.php?route=register">Inscription</a>
+    <a href="../public/index.php?route=login">Connexion</a>
+<?php
+endif;
+?>
+
+<?php
+/** @var \App\src\model\Article $articles */
 foreach ($articles as $article) {
     ?>
     <div>

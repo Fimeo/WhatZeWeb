@@ -31,9 +31,7 @@ abstract class DAO
         } else {
             $result = $this->check_connection()->query($sql);
         }
-        //if ($result->rowCount())
-        //    return $result;
-        //throw new InvalidArgumentException('Empty query');
+        $result->setFetchMode(PDO::FETCH_ASSOC);
         return $result;
     }
 

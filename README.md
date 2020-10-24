@@ -37,3 +37,4 @@ Génération des fichiers autoload :
 * Vérification de l'utilisateur sur chaque page, confirmation des actions avec
 page tampon (suppression compte, article, etc...)
 * Prendre en compte les expirations de session, demande de reconnexion
+* Suppression d'un admin : il faut supprimer ses articles et commentaires avant avec clé étrangères.

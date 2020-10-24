@@ -164,9 +164,11 @@ class BackController extends Controller
     {
         $articles = $this->articleDAO->getArticles();
         $flagComments = $this->commentDAO->getFlagComments();
+        $users = $this->userDAO->getUsers();
         $this->view->render('administration', [
             'articles' => $articles,
-            'comments' => $flagComments
+            'comments' => $flagComments,
+            'users' => $users
         ]);
     }
 
@@ -176,4 +178,12 @@ class BackController extends Controller
         $this->session->set('unflag_comment', 'Le commentaire a bien été désignalé');
         header('Location: ../public/index.php?route=administration');
     }
+
+    public function deleteUser($userId)
+    {
+        $this->userDAO->deleteUser($userId);
+        $this->session->set('delete_user', 'L\'utilisateur a bien été supprimé');
+        header('Location: ../public/index.php?route=administration');
+    }
+
 }

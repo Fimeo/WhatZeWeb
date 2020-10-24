@@ -4,6 +4,7 @@
 namespace App\src\DAO;
 
 use App\config\Parameter;
+use App\src\model\User;
 
 /**
  * Class UserDAO, gère les accès base de donnée pour les comptes utilisateurs
@@ -11,6 +12,29 @@ use App\config\Parameter;
  */
 class UserDAO extends DAO
 {
+    private function buildObject($row)
+    {
+        $user = new User();
+        $user->setId($row['id']);
+        $user->setPseudo($row['pseudo']);
+        $user->setCreatedAt($row['createdAt']);
+        $user->setRole($row['name']);
+        return $user;
+    }
+
+    public function getUsers()
+    {
+        $sql = 'SELECT user.id, user.pseudo, user.createdAt, role.name FROM user INNER JOIN role ON user.role_id = role.id ORDER BY user.id DESC';
+        $result = $this->createQuery($sql);
+        $users = [];
+        foreach ($result as $row){
+            $userId = $row['id'];
+            $users[$userId] = $this->buildObject($row);
+        }
+        $result->closeCursor();
+        return $users;
+    }
+
     /**
      * Enregistre un utilisateur dans la base de données, mot de passe haché
      * @param Parameter $post Données utilisateur
@@ -101,5 +125,11 @@ class UserDAO extends DAO
         $this->createQuery($sql, [
             'id' => $user['id']
         ]);
+    }
+
+    public function deleteUser($pseudo)
+    {
+        $sql = 'DELETE FROM user WHERE id = ?';
+        $this->createQuery($sql, [$pseudo]);
     }
 }

@@ -17,11 +17,13 @@ class UserDAO extends DAO
      */
     public function register(Parameter $post)
     {
+        //TODO : récupérer dynmamiquement l'id du type user dans table role
         $hashpassword = password_hash($post->get('password'), PASSWORD_DEFAULT);
-        $sql = 'INSERT INTO user (pseudo, password, createdAt) VALUES (:pseudo, :password, NOW())';
+        $sql = 'INSERT INTO user (pseudo, password, createdAt, role_id) VALUES (:pseudo, :password, NOW(), :roleid)';
         $this->createQuery($sql, [
             'pseudo' => $post->get('pseudo'),
-            'password' => $hashpassword
+            'password' => $hashpassword,
+            'roleid' => 2
         ]);
     }
 
@@ -50,7 +52,7 @@ class UserDAO extends DAO
     public function login(Parameter $post)
     {
         //TODO : vérification si bien un seuil utilisateur avec ce pseudo !
-        $sql = 'SELECT id, pseudo, password FROM user WHERE pseudo=:pseudo';
+        $sql = 'SELECT u.id, u.pseudo, u.role_id, u.password, r.name AS role FROM user as u INNER JOIN role as r ON r.id = u.role_id WHERE pseudo=:pseudo';
         $data = $this->createQuery($sql, [
             'pseudo' => $post->get('pseudo')
         ]);
@@ -87,5 +89,17 @@ class UserDAO extends DAO
         }
         return false;
         //TODO : gérer si retourne false, mettre un autre msg
+    }
+
+    /**
+     * Suppression d'un compte dans la base de données
+     * @param $user mixed Compte à supprimer
+     */
+    public function deleteAccount($user)
+    {
+        $sql = 'DELETE FROM user WHERE id=:id';
+        $this->createQuery($sql, [
+            'id' => $user['id']
+        ]);
     }
 }

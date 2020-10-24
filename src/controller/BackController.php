@@ -81,7 +81,7 @@ class BackController extends Controller
 
     /**
      * Suppresion d'un article dans la base de données suivant son identifiant
-     * @param $articleId Identifiant de l'article à supprimer
+     * @param $articleId mixed Identifiant de l'article à supprimer
      */
     public function deleteArticle($articleId)
     {
@@ -143,4 +143,17 @@ class BackController extends Controller
         $this->session->set('logout', 'Déconnexion réussie');
         header('Location: ../public/index.php');
     }
+
+    /**
+     * Suppresion du compte utilisateur
+     */
+    public function deleteAccount()
+    {
+        $this->userDAO->deleteAccount($this->session->get('user'));
+        $this->session->destroy();
+        $this->session->start();
+        $this->session->set('delete_account', 'Votre compte à bien été supprimé');
+        header('Location: ../public/index.php');
+    }
+
 }

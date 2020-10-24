@@ -10,13 +10,17 @@
 <?= $this->session->show('register'); ?>
 <?= $this->session->show('login_message'); ?>
 <?= $this->session->show('logout'); ?>
+<?= $this->session->show('delete_account'); ?>
 <?php
 //Menu dynamique si l'utilisateur est connecté
-if ($this->session->get('pseudo')) :
+if ($this->session->getUserInfo('pseudo')) :
     ?>
-    <p>Bienvenue sur votre espace <?= ucfirst(htmlspecialchars($this->session->get('pseudo')))?></p>
+    <p>Bienvenue sur votre espace <?= ucfirst(htmlspecialchars($this->session->getUserInfo('pseudo')))?></p>
     <a href="../public/index.php?route=logout">Déconnexion</a>
     <a href="../public/index.php?route=profile">Profil</a>
+    <?php if($this->session->getUserInfo('role') === 'admin') :?>
+    <a href="../public/index.php?route=administration">Administration</a>
+    <?php endif;?>
     <a href="../public/index.php?route=addArticle">Nouvel article</a>
 <?php
 else:

@@ -75,6 +75,8 @@ class Router
                     $this->backController->updatePassword($post);
                 } elseif ($route === 'logout') {
                     $this->backController->logout();
+                } elseif ($route === 'deleteAccount') {
+                    $this->backController->deleteAccount();
                 } else {
                     $this->errorController->errorNotFound();
                 }

@@ -123,7 +123,6 @@ class FrontController extends Controller
             if ($result && $result['isPasswordValid']) {
                 $this->session->set('login_message', 'Content de vous revoir');
                 $this->session->set('user', $result['result']);
-                $this->session->set('pseudo', $result['result']['pseudo']);
                 header('Location: ../public/index.php');
             } else {
                 //Si mot de passe invalide, remet la page de connexion avec infos

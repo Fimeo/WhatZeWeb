@@ -53,6 +53,20 @@ class Session
     }
 
     /**
+     * Retourne les données de l'utilisateur de la session
+     * @param $name
+     * @return mixed
+     */
+    public function getUserInfo($name)
+    {
+        if (isset($_SESSION['user'])) {
+            if (isset($_SESSION['user'][$name])) {
+                return $_SESSION['user'][$name];
+            }
+        }
+    }
+
+    /**
      * Suppression de la propriété dans les données de SESSION
      * @param $name string Nom de la propriété
      */

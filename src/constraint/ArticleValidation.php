@@ -17,9 +17,6 @@ class ArticleValidation extends Validation
         } elseif ($name === 'content') {
             $error = $this->checkContent($name, $value);
             $this->addError($name, $error);
-        } elseif ($name === 'author') {
-            $error = $this->checkAuthor($name, $value);
-            $this->addError($name, $error);
         }
     }
 
@@ -60,26 +57,6 @@ class ArticleValidation extends Validation
         }
         if ($this->constraint->maxLength($name, $value, 4000)) {
             return $this->constraint->minLength($name, $value, 4000);
-        }
-    }
-
-    /**
-     * Validation d'un autheur suivant : non nul, longueur mini de 2, longueur maxi de 255
-     * @param $name string Nom de la propriété
-     * @param $value mixed Valeur de la propriété
-     * @return string Contenu textuel si erreur
-     */
-    private function checkAuthor($name, $value)
-    {
-        //Si constraint renvoie qqchose, c'est le message d'erreur
-        if ($this->constraint->notBlank($name, $value)) {
-            return $this->constraint->notBlank($name, $value);
-        }
-        if ($this->constraint->minLength($name, $value, 2)) {
-            return $this->constraint->minLength($name, $value, 2);
-        }
-        if ($this->constraint->maxLength($name, $value, 255)) {
-            return $this->constraint->maxLength($name, $value, 255);
         }
     }
 }

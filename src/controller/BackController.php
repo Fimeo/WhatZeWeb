@@ -23,11 +23,11 @@ class BackController extends Controller
             //Validation des données avant soumission à la BD
             $errors = $this->validation->validate($post, 'Article');
             if (!$errors) {
-                $this->articleDAO->addArticle($post);
+                $this->articleDAO->addArticle($post, $this->session->getUserInfo('id'));
                 //Création d'un message à afficher dans la session
                 $this->session->set('add_article', 'Le nouvel article à bien été ajouté');
                 //TODO: Redirection vers l'article crée : nécessite de récupérer son id après création
-                header('Location: ../public/index.php');
+                header('Location: ../public/index.php?route=administration');
             } else {
                 //Si il y a des erreurs, tjrs en modification avec données et errors en plus
                 $this->view->render('add_article', [
@@ -56,9 +56,10 @@ class BackController extends Controller
         if ($post->get('submit')) {
             $errors = $this->validation->validate($post, 'Article');
             if (!$errors) {
+                var_dump($this->session);
+                $this->articleDAO->editArticle($post, $articleId, $this->session->getUserInfo('id'));
                 $this->session->set('edit_article', 'L\'article à bien été mis à jour');
-                $this->articleDAO->editArticle($post, $articleId);
-                header('Location: ../public/index.php?route=article&articleId=' . $articleId);
+                header('Location: ../public/index.php?route=administration');
             } else {
                 //Si il y a des erreurs, affichage avec les données soumises et erreurs
                 $this->view->render('edit_article', [
@@ -88,7 +89,7 @@ class BackController extends Controller
         $this->articleDAO->deleteArticle($articleId);
         //TODO : vérifier si suppression effective pour enregistrer le message dans la session
         $this->session->set('delete_article', 'Article supprimé avec succès');
-        header('Location: ../public/index.php');
+        header('Location: ../public/index.php?route=administration');
     }
 
     /**
@@ -161,7 +162,11 @@ class BackController extends Controller
      */
     public function administration()
     {
-        return $this->view->render('administration');
+        $articles = $this->articleDAO->getArticles();
+        $this->view->render('administration', [
+            'articles' => $articles
+        ]);
     }
+
 
 }

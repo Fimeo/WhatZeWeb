@@ -46,3 +46,7 @@ div p {
 .flag {
   color: #e74c4c;
 }
+
+td {
+  padding: 15px;
+}

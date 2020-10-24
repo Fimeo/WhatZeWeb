@@ -12,7 +12,6 @@
 $route = isset($post) && $post->get('id') ? 'editArticle&articleId=' . $post->get('id') : 'addArticle';
 $title = isset($post) ? htmlspecialchars($post->get('title')) : '';
 $content = isset($post) ? htmlspecialchars($post->get('content')) : '';
-$author = isset($post) ? htmlspecialchars($post->get('author')) : '';
 $submit = $route === 'addArticle' ? 'Envoyer' : 'Mettre à jour';
 ?>
 <form action="../public/index.php?route=<?= $route; ?>" method="post">
@@ -22,8 +21,5 @@ $submit = $route === 'addArticle' ? 'Envoyer' : 'Mettre à jour';
     <label for="content">Contenu</label><br>
     <textarea name="content" id="contenu" cols="30" rows="10"><?= $content; ?></textarea><br>
     <?= isset($errors['content']) ? $errors['content'] : '' ?>
-    <label for="author">Auteur</label><br>
-    <input type="text" id="author" name="author" value="<?= $author; ?>"><br>
-    <?= isset($errors['author']) ? $errors['author'] : '' ?>
     <input type="submit" value="<?= $submit; ?>" id="submit" name="submit">
 </form>

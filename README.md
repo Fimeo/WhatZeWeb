@@ -34,4 +34,6 @@ Génération des fichiers autoload :
 
 
 ### Points d'amélioration du projet
-* Ajout de champs pour création de comptes, email unique, password vérification stricte.
+* Vérification de l'utilisateur sur chaque page, confirmation des actions avec
+page tampon (suppression compte, article, etc...)
+* Prendre en compte les expirations de session, demande de reconnexion

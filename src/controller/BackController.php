@@ -156,4 +156,12 @@ class BackController extends Controller
         header('Location: ../public/index.php');
     }
 
+    /**
+     * Espace administration
+     */
+    public function administration()
+    {
+        return $this->view->render('administration');
+    }
+
 }

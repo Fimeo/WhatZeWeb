@@ -100,7 +100,7 @@ class BackController extends Controller
     {
         $this->commentDAO->deleteComment($commentId);
         $this->session->set('delete_comment', 'Suppression du commentaire effectuée');
-        header('Location: ../public/index.php');
+        header('Location: ../public/index.php?route=administration');
     }
 
     /**
@@ -163,10 +163,17 @@ class BackController extends Controller
     public function administration()
     {
         $articles = $this->articleDAO->getArticles();
+        $flagComments = $this->commentDAO->getFlagComments();
         $this->view->render('administration', [
-            'articles' => $articles
+            'articles' => $articles,
+            'comments' => $flagComments
         ]);
     }
 
-
+    public function unflagComment($commentId)
+    {
+        $this->commentDAO->unflagComment($commentId);
+        $this->session->set('unflag_comment', 'Le commentaire a bien été désignalé');
+        header('Location: ../public/index.php?route=administration');
+    }
 }

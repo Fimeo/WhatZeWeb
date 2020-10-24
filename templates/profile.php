@@ -1,8 +1,5 @@
 <?php
-if(!$this->session->get('user')) {
-    header('Location: ../public/index.php?route=login');
-    die();
-}
+echo $this->session->show('not_admin');
 $this->title = 'Mon profil';
 $user = $this->session->get('user');
 //TODO: proteger les pages de comptes avec redirection vers page de connexion si non connecté

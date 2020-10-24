@@ -2,6 +2,7 @@
 <h1>Mon blog</h1>
 <p>En construction</p>
 <?= $this->session->show('error_login')?>
+<?= $this->session->show('need_login');?>
 <div>
     <form method="post" action="../public/index.php?route=login">
         <label for="pseudo">Pseudo</label><br>
